@@ -1,0 +1,16 @@
+#config.org#
+.DS_Store
+auto-save-list/
+cluster.yaml
+config copy.org
+config.el
+eln-cache/
+elpa/
+elpaca/
+k8s-state-bucket.json
+org-persist/
+org-roam.db
+recentf
+test.el
+test.el~
+test.org
