@@ -14,3 +14,11 @@ recentf
 test.el
 test.el~
 test.org
+.cache/
+.lsp-session-v1
+backup/
+bookmarks
+projectile-bookmarks.eld
+projects
+test.org~
+transient/
