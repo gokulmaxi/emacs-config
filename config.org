@@ -108,7 +108,7 @@
           "t" '(:ignore t :wk "Toggle")
           "t e" '(gdp/vterm-execute-src-block :wk "Toggle line numbers")
           "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
-          "t t" '(treemacs :wk "Toggle truncated lines")
+          "t t" '(visual-line-mode :wk "Toggle truncated lines")
           "t v" '(vterm-toggle :wk "Toggle vterm"))
 
         (gdp/leader-keys
@@ -291,10 +291,7 @@
         :hook (dired-mode . treemacs-icons-dired-enable-once)
         :ensure t)
 
-      (use-package treemacs-magit
-        :after (treemacs magit)
-        :ensure t)
-
+    
       (use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
         :after (treemacs persp-mode) ;;or perspective vs. persp-mode
         :ensure t
@@ -312,28 +309,24 @@
   )
 #+end_src
 
-** magit
-#+begin_src emacs-lisp
-  (use-package magit)
-(setq auto-revert-check-vc-info t)
-#+end_src
 * GRAPHICAL USER INTERFACE TWEAKS
 Let's make GNU Emacs look a little better.
 
 ** Disable Menubar, Toolbars and Scrollbars
 #+begin_src emacs-lisp
     (menu-bar-mode 1)
-    (tool-bar-mode -1)
+    ;; (setq frame-title-format "%b")
+    (tool-bar-mode 1)
     (scroll-bar-mode -1)
-    (add-to-list 'default-frame-alist '(undecorated . t))
-  (set-frame-parameter (selected-frame) 'alpha '(85 85))
+    ;; (add-to-list 'default-frame-alist '(undecorated . t))
+  (set-frame-parameter (selected-frame) 'alpha '(100 100))
 
-  (add-to-list 'default-frame-alist '(alpha 85 85))
+  (add-to-list 'default-frame-alist '(alpha 100 100))
 #+end_src
 
 ** Load doom theme
 
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp
 (use-package doom-themes
   :ensure t
   :config
@@ -438,7 +431,7 @@ Org-bullets gives us attractive bullets rather than asterisks.
             org-roam-ui-follow t
             org-roam-ui-update-on-save t
             org-roam-ui-open-on-start ))
-    
+
 #+end_src
 
 ** Org-superstar
@@ -510,49 +503,15 @@ Org-bullets gives us attractive bullets rather than asterisks.
 
 ** company
 #+begin_src emacs-lisp
-  ;; (use-package company
-  ;;   :config
-  ;;   (setq company-idle-delay 0.1)
-  ;;   (global-company-mode t)
-  ;;   ;; (company-tng-configure-default)
-  ;;   (setq company-minimum-prefix-length 3)
-  ;;   (setq company-selection-wrap-around t)
-  ;;   )
+  (use-package company
+    :config
+    (setq company-idle-delay 0.1)
+    (global-company-mode t)
+    ;; (company-tng-configure-default)
+    (setq company-minimum-prefix-length 3)
+    (setq company-selection-wrap-around t)
+    )
 #+end_src
-** corfu
-#+begin_src emacs-lisp
-    (use-package corfu
-      ;; Optional customizations
-      ;; :custom
-      ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-      ;; (corfu-auto t)                 ;; Enable auto completion
-      ;; (corfu-separator ?\s)          ;; Orderless field separator
-      ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
-      ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
-      ;; (corfu-preview-current nil)    ;; Disable current candidate preview
-      ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
-      ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
-      ;; (corfu-scroll-margin 5)        ;; Use scroll margin
-
-      ;; Enable Corfu only for certain modes.
-      ;; :hook ((prog-mode . corfu-mode)
-      ;;        (shell-mode . corfu-mode)
-      ;;        (eshell-mode . corfu-mode))
-
-      ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
-      ;; be used globally (M-/).  See also the customization variable
-      ;; `global-corfu-modes' to exclude certain modes.
-      :init
-      (global-corfu-mode)
-  )
-(setq lsp-completion-provider :none)
-(defun corfu-lsp-setup ()
-  (setq-local completion-styles '(orderless)
-              completion-category-defaults nil))
-(add-hook 'lsp-mode-hook #'corfu-lsp-setup)
-    ;; A few more useful configurations...
-#+end_src
-
 ** smart parens
 #+begin_src emacs-lisp
   (use-package smartparens
@@ -620,27 +579,23 @@ Org-bullets gives us attractive bullets rather than asterisks.
     indent-bars-width-frac 0.25
     indent-bars-pad-frac 0.1)
   #+end_src
-** kind icons
-#+begin_src emacs-lisp
-(use-package kind-icon
-  :ensure t
-  :after corfu
-  ;:custom
-  ; (kind-icon-blend-background t)
-  ; (kind-icon-default-face 'corfu-default) ; only needed with blend-background
-  :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
-#+end_src
 * Development
 ** Commenting
- 
+
 #+begin_src emacs-lisp
   (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 #+end_src
+** bicep mode
+#+begin_src emacs-lisp
+  (use-package bicep-mode
+    :elpaca
+    (bicep-mode :type git :host github :repo "christiaan-janssen/bicep-mode")
+    )
+#+end_src
 
 ** Lsp-mode
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
   (defun efs/lsp-mode-setup ()
     (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
     (lsp-headerline-breadcrumb-mode))
@@ -749,7 +704,7 @@ Projectile is a project management library for Emacs which makes it a lot easier
   :diminish yas-minor-mode
   :bind (:map yas-minor-mode-map
               ("C-c C-e" . yas-expand))
-  
+
   :config
   (yas-reload-all)
   (add-hook 'prog-mode-hook #'yas-minor-mode)
@@ -782,4 +737,3 @@ Projectile is a project management library for Emacs which makes it a lot easier
 	  which-key-allow-imprecise-window-fit t
 	  which-key-separator " → " ))
 #+end_src
-
