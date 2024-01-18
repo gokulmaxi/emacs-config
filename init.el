@@ -34,8 +34,17 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(completion-cycle-threshold 3)
+ '(corfu-auto t)
+ '(corfu-auto-delay 0.1)
+ '(corfu-auto-prefix 2)
+ '(corfu-preview-current t)
+ '(custom-safe-themes
+   '("f5f80dd6588e59cfc3ce2f11568ff8296717a938edd448a947f9823a4e282b66" default))
  '(indent-bars-treesit-support t)
- '(package-selected-packages '(doom-themes)))
+ '(lsp-terraform-ls-prefill-required-fields t)
+ '(package-selected-packages '(corfu doom-themes))
+ '(tab-always-indent 'complete))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
