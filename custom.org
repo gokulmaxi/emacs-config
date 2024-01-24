@@ -1,3 +1,4 @@
+Custom configs here
 * GRAPHICAL USER INTERFACE TWEAKS
 ** transparency
 #+begin_src emacs-lisp
