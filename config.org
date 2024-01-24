@@ -7,6 +7,7 @@ Configure git to ignore your changes
 #+begin_src shell
 git config merge.org-custom.driver true
 #+end_src
+add custom.org file in your emacs directory
 * IMPORTANT PROGRAMS TO LOAD FIRST
 ** Elpaca Package Manager
 #+begin_src emacs-lisp
