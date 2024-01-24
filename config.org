@@ -3,7 +3,10 @@
 #+DESCRIPTION: DT's personal Emacs config.
 #+STARTUP: overview
 #+OPTIONS: toc:2
-
+Configure git to ignore your changes
+#+begin_src shell
+git config merge.org-custom.driver true
+#+end_src
 * IMPORTANT PROGRAMS TO LOAD FIRST
 ** Elpaca Package Manager
 #+begin_src emacs-lisp
