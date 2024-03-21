@@ -82,8 +82,8 @@ add custom.org file in your emacs directory
         (gdp/leader-keys
           "." '(find-file :wk "Find file")
           "f c" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :wk "Edit emacs config")
-          "f f" '(project-find-file :wk "Find recent files")
-          "f r" '(counsel-recentf :wk "Find recent files")
+          "f f" '(consult-projectile-find-file :wk "Find recent files")
+          "f r" '(consult-recent-file :wk "Find recent files")
           "TAB TAB" '(comment-line :wk "Comment lines"))
 
         (gdp/leader-keys
@@ -884,6 +884,11 @@ Projectile is a project management library for Emacs which makes it a lot easier
                                       :test-suffix "test_"))
 #+end_src
 
+** consult projectile
+#+begin_src emacs-lisp
+(use-package consult-projectile
+  :elpaca (consult-projectile :type git :host gitlab :repo "OlMon/consult-projectile" :branch "master"))
+#+end_src
 ** Treesitter
 #+begin_src emacs-lisp
 (setq treesit-language-source-alist
